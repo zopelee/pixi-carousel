@@ -16,7 +16,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch('src/core/*.js', ['scripts']);
+  gulp.watch('src/**/*.js', ['scripts']);
 });
 
 gulp.task('default', ['scripts', 'styles']);
