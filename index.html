@@ -9,9 +9,9 @@
   <body>
     <canvas class="slider"></canvas>
     
-    <script src="../bower_components/pixi/bin/pixi.min.js"></script>
-    <script src="../bower_components/hammerjs/hammer.min.js"></script>
-    <script src="../build/cansmooslide.min.js"></script>
+    <script src="bower_components/pixi/bin/pixi.min.js"></script>
+    <script src="bower_components/hammerjs/hammer.min.js"></script>
+    <script src="dist/pixi-carousel.min.js"></script>
     <script>
       var sliderEl = document.getElementsByClassName('slider')[0];
       var slideMgr = new SlideManager(500, 500, {
@@ -23,9 +23,9 @@
         has_circles: true,
       });
       var imgs = [
-        'assets/img/drip-871152_640.jpg',
-        'assets/img/blur-21653_640.jpg',
-        'assets/img/lotus-854919_640.jpg'
+        'example/assets/img/drip-871152_640.jpg',
+        'example/assets/img/blur-21653_640.jpg',
+        'example/assets/img/lotus-854919_640.jpg'
       ];
       slideMgr.scale = slideMgr.SCALES.FIT;
       slideMgr.setSlidesAndStart(imgs, {width: 640, height: 426});   // aspect ratio should be same as image file

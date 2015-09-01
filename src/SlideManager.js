@@ -6,7 +6,7 @@ function SlideManager(width, height, options) {
   this.sprites = [];
   this.graphics = new PIXI.Graphics();
 //  this.stage = new PIXI.Stage(this.BKG_COLOR);   // pixi 2
-  this.stage = new PIXI.Stage();
+  this.stage = new PIXI.Container();
 //  this.renderer = new PIXI.CanvasRenderer(width, height, {view: options.view}, true);
   this.renderer = new PIXI.CanvasRenderer(width, height, {view: options.view, backgroundColor: this.BKG_COLOR}, true);   // pixi 3
 }

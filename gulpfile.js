@@ -6,10 +6,10 @@ var sourcemaps = require('gulp-sourcemaps');
 gulp.task('scripts', function () {
   gulp.src(['src/core/*.js', 'src/*.js'])   // order matters
           .pipe(sourcemaps.init())
-          .pipe(concat('cansmooslide.min.js'))
+          .pipe(concat('pixi-carousel.min.js'))
           .pipe(uglify())
           .pipe(sourcemaps.write('./'))
-          .pipe(gulp.dest('build'));
+          .pipe(gulp.dest('dist'));
 });
 
 gulp.task('styles', function () {
