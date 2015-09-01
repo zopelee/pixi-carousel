@@ -1,2 +1,6 @@
-/bower_components/
+/bower_components/*/*
+/bower_components/*/*/*
+!/bower_components/*/*.min.js
+!/bower_components/*/bin
+!/bower_components/*/bin/*.min.js
 /nbproject/
