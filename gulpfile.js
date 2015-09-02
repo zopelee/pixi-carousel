@@ -4,7 +4,13 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('scripts', function () {
-  gulp.src(['src/core/*.js', 'src/*.js'])   // order matters
+  var src = ['src/core/*.js', 'src/*.js'];
+  gulp.src(src)
+          .pipe(sourcemaps.init())
+          .pipe(concat('pixi-carousel.js'))
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest('dist'));
+  gulp.src(src)   // order matters
           .pipe(sourcemaps.init())
           .pipe(concat('pixi-carousel.min.js'))
           .pipe(uglify())
