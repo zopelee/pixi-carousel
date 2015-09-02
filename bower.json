@@ -1,17 +1,18 @@
 {
-  "name": "CanSooSlide",
-  "version": "0.0.0",
+  "name": "pixi-carousel",
   "authors": [
     "zopelee@gmail.com"
   ],
-  "description": "A canvas based picture slide manager, with simple indicators and ability to zoom in/out.",
+  "description": "A canvas based image slider, with the ability to zoom in/out.",
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "index.html",
+    "example"
   ],
   "dependencies": {
     "pixi": "~3.0.7",
