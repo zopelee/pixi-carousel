@@ -5,59 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="">
+    <style>
+      #slider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 98%;
+        max-width: 640px;
+      }
+    </style>
   </head>
   <body>
-    <canvas class="slider"></canvas>
-    
+    <canvas id="slider"></canvas>
+
     <script src="bower_components/pixi/bin/pixi.min.js"></script>
     <script src="bower_components/hammerjs/hammer.min.js"></script>
     <script src="dist/pixi-carousel.min.js"></script>
     <script>
-      var sliderEl = document.getElementsByClassName('slider')[0];
-      var slideMgr = new SlideManager(500, 500, {
-        view: sliderEl, is_accelerated: true,
-        slide_percent_y: 0.5, circle_percent_y: 0.95,
-        bkg_color: 0xF2EFE1,
-        circle_color: 0x000000, circle_color_active: 0x000000,
-        circle_fillAlpha: 0.2, circle_fillAlpha_active: 0.8,
-        has_circles: true,
+      var sliderEl = document.getElementById('slider');
+      var slideMgr = new SlideManager(500, 500, {   // width and height of the manager (not images)
+        view: sliderEl,   // mandatory, your canvas element
+        bkg_color: 0xF2EFE1,   // default 0x000000, the background color
+        is_accelerated: true,   // default false, turn it on to enable the gradual change on sliding speed
+        slide_percent_y: 0.5,   // default 0.5, vertical position of slide
+        has_indicators: true,   // default true
+        indicator_percent_y: 0.95,
+        indicator_color: 0x000000, indicator_color_active: 0x000000,
+        indicator_fillAlpha: 0.2, indicator_fillAlpha_active: 0.8,
       });
       var imgs = [
         'example/assets/img/drip-871152_640.jpg',
         'example/assets/img/blur-21653_640.jpg',
         'example/assets/img/lotus-854919_640.jpg'
       ];
-      slideMgr.scale = slideMgr.SCALES.FIT;
       slideMgr.setSlidesAndStart(imgs, {width: 640, height: 426});   // aspect ratio should be same as image file
-      var hammertime = new Hammer(sliderEl);
-      hammertime.on('tap', function (ev) {
-        slideMgr.zoomIn();
-        slideMgr.zoomOut();
-      });
-      hammertime.get('swipe').set({direction: Hammer.DIRECTION_HORIZONTAL});
-      hammertime.get('pan').set({direction: Hammer.DIRECTION_HORIZONTAL, threshold: 100});
-      hammertime.on('swipeleft panleft', function (ev) {
-        slideMgr.slideLeft();
-      });
-      hammertime.on('swiperight panright', function (ev) {
-        slideMgr.slideRight();
-      });
-      hammertime.on('pan', function (ev) {
-        var slide = slideMgr.getActiveSlide();
-        if (slide) {
-          if (slideMgr.state !== slideMgr.states.inspecting) {
-            return;
-          }
-          ev.preventDefault();
-          slideMgr.panTo(slide.temp_position.x + ev.deltaX, slide.temp_position.y + ev.deltaY);
-        }
-      });
-      hammertime.on('panend', function (ev) {
-        var slide = slideMgr.getActiveSlide();
-        if (slide) {
-          slide.saveTempPosition();
-        }
-      });
+      slideMgr.startAutoSlide(2000);
+      slideMgr.enableSwipe();
+      slideMgr.enableZoom();
     </script>
   </body>
 </html>

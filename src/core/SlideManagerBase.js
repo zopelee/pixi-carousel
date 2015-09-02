@@ -6,23 +6,17 @@ function SlideManagerBase(width, height, options) {
   this.SLIDE_DURATION = options.slide_duration || 300;
   this.SLIDE_PERCENT_Y = options.slide_percent_y || 0.5;
   // SLIDE_PERCENT_Y only effect when scale is CROP
-  this.CIRCLE_COLOR = options.circle_color || 0x000000;
-  this.CIRCLE_COLOR_ACTIVE = options.circle_color_active || 0x000000;
-  this.CIRCLE_FILLALPHA = options.circle_fillAlpha || 0.9;
-  this.CIRCLE_FILLALPHA_ACTIVE = options.circle_fillAlpha_active || 0.5;
-  this.CIRCLE_RADIUS = options.circle_radius || 8;
-  this.CIRCLE_MARGIN = options.circle_margin || 25;
-  this.CIRCLE_PERCENT_Y = options.circle_percent_y || 0.9;
+  this.CIRCLE_COLOR = options.indicator_color || 0x000000;
+  this.CIRCLE_COLOR_ACTIVE = options.indicator_color_active || 0x000000;
+  this.CIRCLE_FILLALPHA = options.indicator_fillAlpha || 0.9;
+  this.CIRCLE_FILLALPHA_ACTIVE = options.indicator_fillAlpha_active || 0.5;
+  this.CIRCLE_RADIUS = options.indicator_radius || 8;
+  this.CIRCLE_MARGIN = options.indicator_margin || 25;
+  this.CIRCLE_PERCENT_Y = options.indicator_percent_y || 0.9;
   this.BKG_COLOR = options.bkg_color || 0x000000;
+  this.scale = options.scale || this.SCALES.FIT;
 
-  this.SCALES = {
-    CROP: {},
-    STRETCH: {},
-    FIT: {}
-  };
-  this.scale = null;
-
-  this.has_circles = options.has_circles || false;
+  this.has_indicators = options.has_indicators || true;
   this.speed = this.WIDTH / this.SLIDE_DURATION;
   this.is_accelerated = options.is_accelerated || false;
   this.initial_speed = this.is_accelerated ? (2 * this.WIDTH / this.SLIDE_DURATION) : this.speed;
@@ -46,7 +40,7 @@ function SlideManagerBase(width, height, options) {
   this.state_time = 0;
   this.slides = [];
   this.slide_count = 0;
-  this.circles = [];
+  this.indicators = [];
 
   this.is_position_adjusted = false;
 
@@ -197,12 +191,12 @@ SlideManagerBase.prototype.getActiveIndex = function () {
 
 SlideManagerBase.prototype.adjustCircles = function () {
   var active_index = this.slides.indexOf(this.getActiveSlide());
-  for (var i = 0, len = this.circles.length; i < len; i++) {
-    this.circles[i].color = this.CIRCLE_COLOR;
-    this.circles[i].fillAlpha = this.CIRCLE_FILLALPHA;
+  for (var i = 0, len = this.indicators.length; i < len; i++) {
+    this.indicators[i].color = this.CIRCLE_COLOR;
+    this.indicators[i].fillAlpha = this.CIRCLE_FILLALPHA;
   }
-  this.circles[active_index].color = this.CIRCLE_COLOR_ACTIVE;
-  this.circles[active_index].fillAlpha = this.CIRCLE_FILLALPHA_ACTIVE;
+  this.indicators[active_index].color = this.CIRCLE_COLOR_ACTIVE;
+  this.indicators[active_index].fillAlpha = this.CIRCLE_FILLALPHA_ACTIVE;
 };
 
 SlideManagerBase.prototype.adjustPosition = function () {
@@ -257,11 +251,11 @@ SlideManagerBase.prototype.panTo = function (x, y) {
   }
   var slide = this.getActiveSlide();
   if (slide) {
-    if (x - 0.5*slide.width >= 0 || x + 0.5*slide.width <= this.WIDTH) {
+    if (x - 0.5 * slide.width >= 0 || x + 0.5 * slide.width <= this.WIDTH) {
     } else {
       slide.position.x = x;
     }
-    if (y - 0.5*slide.height >= 0 || y + 0.5*slide.height <= this.HEIGHT) {
+    if (y - 0.5 * slide.height >= 0 || y + 0.5 * slide.height <= this.HEIGHT) {
     } else {
       slide.position.y = y;
     }
@@ -295,7 +289,7 @@ SlideManagerBase.prototype.setSlides = function (img_srcs, options) {
   var height = options.height || this.HEIGHT;
   this.slide_count = img_srcs.length;
   for (var i = 0; i < this.slide_count; i++) {
-    if (typeof(img_srcs[i]) === 'string') {
+    if (typeof (img_srcs[i]) === 'string') {
       this.slides.push(new Slide(width, height, img_srcs[i], null));
     } else {
       this.slides.push(new Slide(width, height, null, img_srcs[i]));
@@ -304,9 +298,9 @@ SlideManagerBase.prototype.setSlides = function (img_srcs, options) {
 };
 
 SlideManagerBase.prototype.init = function () {
-  // position slides and circles
+  // position slides and indicators
   var len = this.slide_count;
-  var left_circle_x = this.WIDTH / 2 - (len - 1) * this.CIRCLE_MARGIN / 2;
+  var left_indicator_x = this.WIDTH / 2 - (len - 1) * this.CIRCLE_MARGIN / 2;
   for (var i = 0; i < len; i++) {
     var slide = this.slides[i];
 
@@ -335,15 +329,21 @@ SlideManagerBase.prototype.init = function () {
       default:
     }
 
-    var circle = new Circle({
+    var indicator = new Circle({
       radius: this.CIRCLE_RADIUS,
-      position: {x: left_circle_x + this.CIRCLE_MARGIN * i, y: this.HEIGHT * this.CIRCLE_PERCENT_Y},
+      position: {x: left_indicator_x + this.CIRCLE_MARGIN * i, y: this.HEIGHT * this.CIRCLE_PERCENT_Y},
       color: i === 0 ? this.CIRCLE_COLOR_ACTIVE : this.CIRCLE_COLOR,
       fillAlpha: i === 0 ? this.CIRCLE_FILLALPHA_ACTIVE : this.CIRCLE_FILLALPHA,
     });
-    this.circles.push(circle);
+    this.indicators.push(indicator);
   }
   if (this.onInit) {
     this.onInit();
   }
+};
+
+SlideManagerBase.prototype.SCALES = {
+  CROP: {},
+  STRETCH: {},
+  FIT: {}
 };
