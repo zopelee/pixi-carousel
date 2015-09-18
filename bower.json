@@ -14,11 +14,8 @@
     "index.html",
     "example"
   ],
-  "main": [
-    "dist/pixi-carousel.js"
-  ],
   "dependencies": {
-    "pixi": "~3.0.7",
-    "hammerjs": "~2.0.4"
+    "hammerjs": "~2.0.4",
+    "pixi": "~3.0.7"
   }
 }

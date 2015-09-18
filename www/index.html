@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pixi-carousel test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+  </head>
+  <body>
+    <canvas id="slider"></canvas>
+    <div class="icons-container">
+      <div class="action-icon">
+        <img src="assets/img/swipe.png">
+        <div class="action-text">Slide</div>
+      </div>
+      <div class="action-icon">
+        <img src="assets/img/touch.png">
+        <div class="action-text">Zoom</div>
+      </div>
+    </div>
+
+    <script src="bower_components/pixi/bin/pixi.min.js"></script>
+    <script src="bower_components/hammerjs/hammer.min.js"></script>
+    <script src="src/core/Circle.js"></script>
+    <script src="src/core/Director.js"></script>
+    <script src="src/core/Slide.js"></script>
+    <script src="src/core/SlideManagerBase.js"></script>
+    <script src="src/SlideManager.js"></script>
+    <script>
+      var sliderEl = document.getElementById('slider');
+      var slideMgr = new SlideManager(500, 500, {// width and height of the manager (not images)
+        view: sliderEl, // mandatory, your canvas element
+        bkg_color: 0xF2EFE1, // default 0x000000, the background color
+        is_accelerated: true, // default false, turn it on to enable the gradual change on sliding speed
+        slide_percent_y: 0.5, // default 0.5, vertical position of slide
+        has_indicators: true, // default true
+        indicator_percent_y: 0.95,
+        indicator_color: 0x000000, indicator_color_active: 0x000000,
+        indicator_fillAlpha: 0.2, indicator_fillAlpha_active: 0.8,
+      });
+      var imgs = [
+        'assets/img/drip-871152_640.jpg',
+        'assets/img/blur-21653_640.jpg',
+        'assets/img/lotus-854919_640.jpg'
+      ];
+      slideMgr.setSlidesAndStart(imgs, {width: 640, height: 426});   // aspect ratio should be same as image file
+      slideMgr.startAutoSlide(2000);
+      slideMgr.enableSwipe();
+      slideMgr.enableZoom();
+    </script>
+  </body>
+</html>

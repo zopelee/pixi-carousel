@@ -1,0 +1,26 @@
+#slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90%;
+  max-width: 640px;
+}
+img{
+  width: 100%;
+}
+.icons-container{
+  position: absolute;
+  bottom: 10px;
+  width: 90%;
+}
+.action-icon{
+  display: inline-block;
+  width: 20%;
+  max-width: 100px;
+}
+.action-text{
+  text-align: center;
+}
