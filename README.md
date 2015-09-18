@@ -2,7 +2,7 @@
 A canvas based image slider (carousel), with simple indicators and ability to zoom in/out.
 
 ## Demo
-[Here](http://zopelee.github.io/pixi-carousel/www)
+<a href="http://zopelee.github.io/pixi-carousel/www" target="_blank">Here</a>
 
 ## Usage
 #### Install
