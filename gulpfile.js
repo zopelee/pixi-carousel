@@ -4,7 +4,7 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('scripts', function () {
-  gulp.src(['src/core/*.js', 'src/*.js'])   // order matters
+  gulp.src(['www/src/core/*.js', 'www/src/*.js'])   // order matters
           .pipe(sourcemaps.init())
           .pipe(concat('pixi-carousel.min.js'))
           .pipe(uglify())
