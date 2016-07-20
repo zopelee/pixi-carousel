@@ -10,13 +10,13 @@ A canvas based image slider (carousel), with simple indicators and ability to zo
 bower install pixi-carousel
 ```
 #### Include
-```
+```html
 <script src="bower_components/pixi/bin/pixi.min.js"></script>
 <script src="bower_components/hammerjs/hammer.min.js"></script>
 <script src="bower_components/pixi-carousel/dist/pixi-carousel.min.js"></script>
 ```
 #### Begin Slide
-```
+```javascript
 var sliderEl = document.getElementById('slider');
 var slideMgr = new SlideManager(500, 500, {// width and height of the manager (not images)
   view: sliderEl, // mandatory, your canvas element
